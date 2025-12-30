@@ -14,9 +14,22 @@
             font-family: 'Inter', system-ui, sans-serif;
         }
 
+        :root {
+            --obsidian: #050505;
+            --surface: rgba(20, 20, 20, 0.85);
+            --gold: #D4AF37;
+            --gold-light: #F1D279;
+            --gold-dark: #A68026;
+            --orange: #FF6B00;
+            --orange-muted: rgba(255, 107, 0, 0.2);
+            --text-dim: #94a3b8;
+            --border-gold: rgba(212, 175, 55, 0.15);
+        }
+
         body {
             overflow: hidden;
-            background: #0a0f1a;
+            background: var(--obsidian);
+            color: #f8fafc;
         }
 
         /* Custom scrollbar */
@@ -29,104 +42,114 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #334155;
+            background: var(--gold-dark);
             border-radius: 3px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+            background: var(--gold);
         }
 
         /* Panel styling */
         .panel {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.98) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border-right: 1px solid rgba(71, 85, 105, 0.5);
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.98) 0%, rgba(5, 5, 5, 0.95) 100%);
+            border-right: 1px solid var(--border-gold);
+            backdrop-filter: blur(12px);
         }
 
         /* Section headers */
         .section-header {
             font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
+            font-weight: 700;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: #64748b;
+            color: var(--gold);
             padding-bottom: 6px;
-            border-bottom: 1px solid rgba(71, 85, 105, 0.3);
+            border-bottom: 1px solid var(--border-gold);
             margin-bottom: 10px;
+            opacity: 0.8;
         }
 
         /* Range inputs */
         input[type="range"] {
             -webkit-appearance: none;
-            height: 4px;
+            appearance: none;
+            height: 3px;
             border-radius: 2px;
-            background: linear-gradient(to right, #1e293b, #334155);
+            background: #1a1a1a;
             cursor: pointer;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            appearance: none;
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
             cursor: pointer;
-            transition: transform 0.15s;
+            transition: transform 0.15s, box-shadow 0.15s;
+            border: 1px solid var(--gold-dark);
         }
 
         input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.15);
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
         /* Select inputs */
         select {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 6px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 6px 8px;
-            color: #e2e8f0;
+            color: #eee;
             font-size: 11px;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         select:hover {
-            border-color: #475569;
+            border-color: var(--gold-dark);
         }
 
         select:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
         }
 
         /* Number inputs */
         input[type="number"] {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 6px;
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 6px 8px;
-            color: #e2e8f0;
+            color: #eee;
             font-size: 11px;
             width: 100%;
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         input[type="number"]:hover {
-            border-color: #475569;
+            border-color: var(--gold-dark);
         }
 
         input[type="number"]:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
         }
 
         /* Canvas */
         #canvas3d {
             cursor: grab;
-            background: radial-gradient(ellipse at center, #1a2744 0%, #0c1222 70%, #070b14 100%);
+            background: radial-gradient(ellipse at center, #1b1510 0%, #0a0a0a 70%, #050505 100%);
+            width: 100%;
+            height: 100%;
+            display: block;
+            min-height: 0;
         }
 
         #canvas3d:active {
@@ -135,58 +158,62 @@
 
         /* Segment items */
         .segment-item {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid #334155;
-            border-radius: 6px;
+            background: rgba(25, 25, 25, 0.5);
+            border: 1px solid #222;
+            border-radius: 4px;
             padding: 8px 10px;
             cursor: pointer;
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         .segment-item:hover {
-            background: rgba(59, 130, 246, 0.1);
-            border-color: #3b82f6;
+            background: rgba(212, 175, 55, 0.05);
+            border-color: var(--gold-dark);
         }
 
         .segment-item.active {
-            background: rgba(59, 130, 246, 0.15);
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.05);
         }
 
         /* Buttons */
         .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            font-weight: 600;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--obsidian);
+            font-weight: 700;
             padding: 6px 12px;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 11px;
-            transition: all 0.15s;
-            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.2);
         }
 
         .btn-success {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, var(--orange), #cc5600);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             padding: 8px 16px;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 12px;
-            transition: all 0.15s;
-            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .btn-success:hover {
-            background: linear-gradient(135deg, #34d399, #10b981);
+            background: linear-gradient(135deg, #ff8533, var(--orange));
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.3);
         }
 
         .btn-success:disabled {
@@ -196,19 +223,20 @@
         }
 
         .btn-secondary {
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #94a3b8;
+            background: #151515;
+            border: 1px solid #333;
+            color: #ccc;
             font-weight: 500;
             padding: 6px 10px;
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 10px;
-            transition: all 0.15s;
+            transition: all 0.2s;
         }
 
         .btn-secondary:hover {
-            background: #334155;
-            color: #e2e8f0;
+            background: #222;
+            color: var(--gold);
+            border-color: var(--gold-dark);
         }
 
         .btn-danger {
@@ -229,31 +257,36 @@
 
         /* Value displays */
         .value-display {
-            color: #60a5fa;
-            font-weight: 600;
+            color: var(--gold);
+            font-weight: 700;
             font-variant-numeric: tabular-nums;
         }
 
         /* Stat cards */
         .stat-card {
-            background: rgba(30, 41, 59, 0.4);
-            border-radius: 8px;
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 4px;
             padding: 8px 12px;
             text-align: center;
-            border: 1px solid rgba(71, 85, 105, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-gold);
         }
 
         /* Compliance badges */
         .compliance-pass {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
-            border: 1px solid rgba(16, 185, 129, 0.4);
-            color: #34d399;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--gold-light);
         }
 
         .compliance-fail {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #f87171;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), rgba(255, 107, 0, 0.05));
+            border: 1px solid rgba(255, 107, 0, 0.3);
+            color: var(--orange);
         }
 
         /* Animations */
@@ -285,7 +318,7 @@
 
         /* Checkbox styling */
         input[type="checkbox"] {
-            accent-color: #3b82f6;
+            accent-color: var(--gold);
             width: 14px;
             height: 14px;
             cursor: pointer;
@@ -322,11 +355,11 @@
 <body class="text-white h-screen flex flex-col">
     <!-- Header -->
     <header
-        class="flex-shrink-0 px-5 py-3 flex justify-between items-center border-b border-slate-800/50 bg-slate-900/80 backdrop-blur-sm">
+        class="flex-shrink-0 px-5 py-3 flex justify-between items-center border-b border-white/5 bg-black/40 backdrop-blur-md">
         <div class="flex items-center gap-3">
-            <div
-                class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-500 to-gold-700 flex items-center justify-center shadow-2xl shadow-gold-500/10 border border-gold-400/20"
+                style="background: linear-gradient(135deg, var(--gold-light), var(--gold-dark))">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
                     </path>
@@ -340,9 +373,9 @@
 
         <div class="flex items-center gap-4">
             <div
-                class="hidden md:flex items-center gap-2 text-[10px] text-slate-500 bg-slate-800/50 px-3 py-1.5 rounded-full">
+                class="hidden md:flex items-center gap-2 text-[10px] text-slate-500 bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
                 <span class="flex items-center gap-1"><kbd
-                        class="px-1.5 py-0.5 bg-slate-700 rounded text-slate-400">Drag</kbd> Rotate</span>
+                        class="px-1.5 py-0.5 bg-white/10 rounded text-slate-300">Drag</kbd> Rotate</span>
                 <span class="text-slate-600">•</span>
                 <span class="flex items-center gap-1"><kbd
                         class="px-1.5 py-0.5 bg-slate-700 rounded text-slate-400">Scroll</kbd> Zoom</span>
@@ -367,13 +400,13 @@
         </div>
     </header>
 
-    <div class="flex-1 flex overflow-hidden">
+    <div class="flex-1 flex overflow-hidden min-h-0">
         <!-- Left Panel -->
-        <div class="w-72 flex-shrink-0 panel overflow-y-auto p-4 space-y-5">
+        <div class="w-72 flex-shrink-0 panel overflow-y-auto p-4 pb-16 space-y-5">
 
             <!-- Road Segments Section -->
             <div>
-                <div class="flex justify-between items-center mb-3">
+                <div class="flex justify-between items-center mb-1">
                     <div class="section-header mb-0 border-0 pb-0">Road Segments</div>
                     <button id="addSegment" class="btn-primary flex items-center gap-1">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -382,6 +415,23 @@
                         </svg>
                         Add
                     </button>
+                </div>
+                <div class="flex gap-2 mb-3">
+                    <button id="exportBtn" class="btn-secondary flex-1 flex items-center justify-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                        </svg>
+                        Export
+                    </button>
+                    <button id="importBtn" class="btn-secondary flex-1 flex items-center justify-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                        </svg>
+                        Import
+                    </button>
+                    <input type="file" id="importFile" accept=".json,.txt" class="hidden">
                 </div>
                 <div id="segmentList" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
             </div>
@@ -560,70 +610,78 @@
             <div>
                 <div class="section-header">Display Options</div>
                 <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
-                    <label class="flex items-center gap-2 cursor-pointer hover:text-blue-400 transition-colors">
+                    <label class="flex items-center gap-2 cursor-pointer hover:text-gold transition-colors">
                         <input type="checkbox" id="showMesh" checked>
                         <span class="text-slate-400">Illuminance Mesh</span>
                     </label>
-                    <label class="flex items-center gap-2 cursor-pointer hover:text-blue-400 transition-colors">
+                    <label class="flex items-center gap-2 cursor-pointer hover:text-gold transition-colors">
                         <input type="checkbox" id="showPoles" checked>
                         <span class="text-slate-400">Light Poles</span>
                     </label>
-                    <label class="flex items-center gap-2 cursor-pointer hover:text-blue-400 transition-colors">
+                    <label class="flex items-center gap-2 cursor-pointer hover:text-gold transition-colors">
                         <input type="checkbox" id="showLightCones" checked>
                         <span class="text-slate-400">Light Cones</span>
                     </label>
-                    <label class="flex items-center gap-2 cursor-pointer hover:text-blue-400 transition-colors">
+                    <label class="flex items-center gap-2 cursor-pointer hover:text-gold transition-colors">
                         <input type="checkbox" id="showGrid" checked>
                         <span class="text-slate-400">Grid Lines</span>
                     </label>
                 </div>
 
-                <div class="flex gap-2 mt-3">
-                    <button id="resetView" class="btn-secondary flex-1">Reset View</button>
-                    <button id="topView" class="btn-secondary flex-1">Top View</button>
+                <div class="space-y-2 mt-4">
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="resetView" class="btn-secondary flex-1">Reset</button>
+                        <button id="isoView" class="btn-secondary flex-1">ISO View</button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button id="topView" class="btn-secondary flex-1">Top View</button>
+                        <button id="sideView" class="btn-secondary flex-1">Elevation</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Main 3D View -->
-        <div class="flex-1 flex flex-col">
-            <canvas id="canvas3d" class="flex-1"></canvas>
+        <!-- Main 3D View Container -->
+        <div class="flex-1 flex flex-col min-h-0">
+            <div class="flex-1 relative min-h-0">
+                <canvas id="canvas3d"></canvas>
+            </div>
 
             <!-- Bottom Stats Bar -->
-            <div
-                class="flex-shrink-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-900 border-t border-slate-800/50 px-5 py-3">
-                <div class="flex items-center justify-between">
+            <div class="flex-shrink-0 bg-black border-t border-white/5 px-8 pt-5 pb-8">
+                <div class="flex items-center justify-between flex-wrap gap-y-4">
                     <!-- Metrics -->
-                    <div class="flex items-center gap-1">
+                    <div class="flex items-center gap-3">
                         <div class="stat-card">
                             <div class="text-[10px] text-slate-500 uppercase tracking-wide">Length</div>
                             <div class="text-lg font-bold text-white tabular-nums"><span id="totalLength">--</span><span
                                     class="text-xs text-slate-500 ml-1">ft</span></div>
                         </div>
 
-                        <div class="w-px h-8 bg-slate-700/50 mx-2"></div>
+                        <div class="w-px h-8 bg-white/5 mx-2"></div>
 
                         <div class="stat-card">
                             <div class="text-[10px] text-slate-500 uppercase tracking-wide">E<sub>avg</sub></div>
-                            <div class="text-lg font-bold text-amber-400 tabular-nums"><span id="avgLux">--</span><span
+                            <div class="text-lg font-bold text-gold tabular-nums"><span id="avgLux">--</span><span
                                     class="text-xs text-slate-500 ml-1">fc</span></div>
                         </div>
-                        <div class="stat-card">
-                            <div class="text-[10px] text-slate-500 uppercase tracking-wide">E<sub>min</sub></div>
-                            <div class="text-lg font-bold text-blue-400 tabular-nums"><span id="minLux">--</span><span
+                        <div class="stat-card border-orange/20">
+                            <div class="text-[10px] text-orange uppercase tracking-wide opacity-80">E<sub>min</sub>
+                            </div>
+                            <div class="text-lg font-bold text-orange tabular-nums"><span id="minLux">--</span><span
                                     class="text-xs text-slate-500 ml-1">fc</span></div>
                         </div>
                         <div class="stat-card">
                             <div class="text-[10px] text-slate-500 uppercase tracking-wide">E<sub>max</sub></div>
-                            <div class="text-lg font-bold text-orange-400 tabular-nums"><span id="maxLux">--</span><span
+                            <div class="text-lg font-bold text-white tabular-nums"><span id="maxLux">--</span><span
                                     class="text-xs text-slate-500 ml-1">fc</span></div>
                         </div>
 
-                        <div class="w-px h-8 bg-slate-700/50 mx-2"></div>
+                        <div class="w-px h-8 bg-white/5 mx-2"></div>
 
                         <div class="stat-card">
                             <div class="text-[10px] text-slate-500 uppercase tracking-wide">Uniformity</div>
-                            <div class="text-lg font-bold text-emerald-400 tabular-nums" id="uniformity">--</div>
+                            <div class="text-lg font-bold text-gold-light tabular-nums" id="uniformity">--</div>
                         </div>
                         <div class="stat-card">
                             <div class="text-[10px] text-slate-500 uppercase tracking-wide">Poles</div>
@@ -651,9 +709,9 @@
                         </div>
                         <div id="check3"
                             class="px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-2 transition-all">
-                            <span class="text-slate-400">U₀ ≥</span>
-                            <span id="checkReq3" class="text-slate-500">--</span>
-                            <span class="text-slate-600">→</span>
+                            <span class="text-slate-500">U₀ ≥</span>
+                            <span id="checkReq3" class="text-slate-600">--</span>
+                            <span class="text-slate-700">→</span>
                             <span id="checkVal3" class="font-bold tabular-nums">--</span>
                             <span id="checkIcon3" class="text-sm">⏳</span>
                         </div>
@@ -789,12 +847,24 @@
         }
 
         function setParams(params) {
+            if (params.roadWidth !== undefined) document.getElementById('roadWidth').value = params.roadWidth;
+            if (params.lanes !== undefined) document.getElementById('lanes').value = params.lanes;
+            if (params.roadClass !== undefined) document.getElementById('roadClass').value = params.roadClass;
+            if (params.crown !== undefined) document.getElementById('crown').value = params.crown;
             if (params.poleSpacing !== undefined) document.getElementById('poleSpacing').value = params.poleSpacing;
             if (params.mountHeight !== undefined) document.getElementById('mountHeight').value = params.mountHeight;
             if (params.armLength !== undefined) document.getElementById('armLength').value = params.armLength;
-            if (params.lumens !== undefined) document.getElementById('lumens').value = params.lumens;
             if (params.arrangement !== undefined) document.getElementById('arrangement').value = params.arrangement;
+            if (params.lumens !== undefined) document.getElementById('lumens').value = params.lumens;
             if (params.beamAngle !== undefined) document.getElementById('beamAngle').value = params.beamAngle;
+            if (params.maintenanceFactor !== undefined) document.getElementById('maintenanceFactor').value = params.maintenanceFactor;
+
+            if (params.showMesh !== undefined) document.getElementById('showMesh').checked = params.showMesh;
+            if (params.showPoles !== undefined) document.getElementById('showPoles').checked = params.showPoles;
+            if (params.showLightCones !== undefined) document.getElementById('showLightCones').checked = params.showLightCones;
+            if (params.showGrid !== undefined) document.getElementById('showGrid').checked = params.showGrid;
+
+            updateDisplays();
         }
 
         function getPoles(roadPath, params) {
@@ -922,21 +992,18 @@
         function luxToColor(lux, maxLux) {
             const t = Math.min(1, lux / Math.max(maxLux, 1));
             let r, g, b;
-            if (t < 0.2) {
-                const u = t / 0.2;
-                r = 15; g = 25 + u * 60; b = 80 + u * 60;
-            } else if (t < 0.4) {
-                const u = (t - 0.2) / 0.2;
-                r = 15 + u * 10; g = 85 + u * 80; b = 140 - u * 40;
-            } else if (t < 0.6) {
-                const u = (t - 0.4) / 0.2;
-                r = 25 + u * 80; g = 165 + u * 35; b = 100 - u * 60;
-            } else if (t < 0.8) {
-                const u = (t - 0.6) / 0.2;
-                r = 105 + u * 120; g = 200 - u * 20; b = 40 - u * 20;
+            if (t < 0.25) {
+                const u = t / 0.25;
+                r = 20 + u * 40; g = 10 + u * 20; b = 5 + u * 5;
+            } else if (t < 0.5) {
+                const u = (t - 0.25) / 0.25;
+                r = 60 + u * 90; g = 30 + u * 50; b = 10 + u * 15;
+            } else if (t < 0.75) {
+                const u = (t - 0.5) / 0.25;
+                r = 150 + u * 105; g = 80 + u * 100; b = 25 + u * 15;
             } else {
-                const u = (t - 0.8) / 0.2;
-                r = 225 + u * 30; g = 180 + u * 40; b = 20 + u * 30;
+                const u = (t - 0.75) / 0.25;
+                r = 255; g = 180 + u * 75; b = 40 + u * 215;
             }
             return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
         }
@@ -992,9 +1059,8 @@
             for (const quad of roadQuads) {
                 // Shade based on depth for 3D effect
                 const depthFactor = Math.max(0.4, Math.min(1, 0.6 + quad.depth * 0.001));
-                const baseColor = Math.round(15 * depthFactor);
-                const blueColor = Math.round(26 * depthFactor);
-                ctx.fillStyle = `rgb(${baseColor}, ${Math.round(baseColor * 1.5)}, ${blueColor})`;
+                const c = Math.round(20 * depthFactor);
+                ctx.fillStyle = `rgb(${c}, ${c}, ${c})`;
                 ctx.beginPath();
                 ctx.moveTo(quad.pts[0].x, quad.pts[0].y);
                 quad.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
@@ -1002,7 +1068,7 @@
                 ctx.fill();
 
                 // Subtle grid on road surface
-                ctx.strokeStyle = 'rgba(50, 70, 100, 0.15)';
+                ctx.strokeStyle = 'rgba(212, 175, 55, 0.08)';
                 ctx.lineWidth = 0.5;
                 ctx.stroke();
             }
@@ -1169,36 +1235,36 @@
                     const pTop = toIso(pole.x - cx, pole.y - cy, pole.z + params.mountHeight - 0.5);
                     const pLight = toIso(pole.lightX - cx, pole.lightY - cy, pole.z + params.mountHeight);
 
-                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
+                    ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
                     ctx.lineWidth = 5;
                     ctx.beginPath();
                     ctx.moveTo(pBase.x + 2, pBase.y + 2);
                     ctx.lineTo(pTop.x + 2, pTop.y + 2);
                     ctx.stroke();
 
-                    ctx.strokeStyle = '#475569';
+                    ctx.strokeStyle = '#222';
                     ctx.lineWidth = 4;
                     ctx.beginPath();
                     ctx.moveTo(pBase.x, pBase.y);
                     ctx.lineTo(pTop.x, pTop.y);
                     ctx.stroke();
 
-                    ctx.strokeStyle = '#64748b';
-                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#D4AF37';
+                    ctx.lineWidth = 1.5;
                     ctx.beginPath();
                     ctx.moveTo(pBase.x, pBase.y);
                     ctx.lineTo(pTop.x, pTop.y);
                     ctx.stroke();
 
-                    ctx.strokeStyle = '#475569';
+                    ctx.strokeStyle = '#8a6d1d';
                     ctx.lineWidth = 3;
                     ctx.beginPath();
                     ctx.moveTo(pTop.x, pTop.y);
                     ctx.lineTo(pLight.x, pLight.y);
                     ctx.stroke();
 
-                    ctx.strokeStyle = '#64748b';
-                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = '#D4AF37';
+                    ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.moveTo(pTop.x, pTop.y);
                     ctx.lineTo(pLight.x, pLight.y);
@@ -1245,19 +1311,19 @@
                 const metrics = ctx.measureText(label);
 
                 if (idx === selectedSegment) {
-                    ctx.fillStyle = 'rgba(59, 130, 246, 0.95)';
+                    ctx.fillStyle = 'rgba(212, 175, 55, 0.95)';
                 } else {
-                    ctx.fillStyle = 'rgba(30, 41, 59, 0.9)';
+                    ctx.fillStyle = 'rgba(15, 15, 15, 0.9)';
                 }
                 ctx.beginPath();
                 ctx.roundRect(pt.x - metrics.width / 2 - 6, pt.y - 8, metrics.width + 12, 16, 4);
                 ctx.fill();
 
-                ctx.strokeStyle = idx === selectedSegment ? 'rgba(96, 165, 250, 0.5)' : 'rgba(71, 85, 105, 0.5)';
+                ctx.strokeStyle = idx === selectedSegment ? 'rgba(255, 255, 255, 0.4)' : 'rgba(212, 175, 55, 0.2)';
                 ctx.lineWidth = 1;
                 ctx.stroke();
 
-                ctx.fillStyle = '#fff';
+                ctx.fillStyle = idx === selectedSegment ? '#000' : '#D4AF37';
                 ctx.textAlign = 'center';
                 ctx.fillText(label, pt.x, pt.y + 4);
 
@@ -1265,6 +1331,85 @@
             });
 
             drawLegend(maxLux);
+            drawCompass();
+        }
+
+        function drawCompass() {
+            const size = 30;
+            const cx = 50;
+            const cy = canvas.height - 80;
+
+            // Helper for compass-only projection
+            const proj = (nx, ny, nz) => {
+                const cosY = Math.cos(view.rotY);
+                const sinY = Math.sin(view.rotY);
+                const cosX = Math.cos(view.rotX);
+                const sinX = Math.sin(view.rotX);
+                const rx = nx * cosY - ny * sinY;
+                const ry = nx * sinY + ny * cosY;
+                return {
+                    x: rx * size + cx,
+                    y: (ry * sinX - nz * cosX) * size + cy,
+                    depth: ry * cosX + nz * sinX
+                };
+            };
+
+            const vertices = [
+                { x: -1, y: -1, z: -1 }, { x: 1, y: -1, z: -1 }, { x: 1, y: 1, z: -1 }, { x: -1, y: 1, z: -1 },
+                { x: -1, y: -1, z: 1 }, { x: 1, y: -1, z: 1 }, { x: 1, y: 1, z: 1 }, { x: -1, y: 1, z: 1 }
+            ];
+
+            const faces = [
+                { v: [0, 1, 2, 3], color: 'rgba(212,175,55,0.1)', label: 'B', normal: { x: 0, y: 0, z: -1 } },
+                { v: [4, 5, 6, 7], color: 'rgba(212,175,55,0.4)', label: 'T', normal: { x: 0, y: 0, z: 1 } },
+                { v: [0, 1, 5, 4], color: 'rgba(255,107,0,0.2)', label: 'S', normal: { x: 0, y: -1, z: 0 } },
+                { v: [2, 3, 7, 6], color: 'rgba(255,107,0,0.2)', label: 'N', normal: { x: 0, y: 1, z: 0 } },
+                { v: [0, 3, 7, 4], color: 'rgba(212,175,55,0.2)', label: 'W', normal: { x: -1, y: 0, z: 0 } },
+                { v: [1, 2, 6, 5], color: 'rgba(212,175,55,0.2)', label: 'E', normal: { x: 1, y: 0, z: 0 } }
+            ];
+
+            const projected = faces.map(f => {
+                const pts = f.v.map(idx => proj(vertices[idx].x, vertices[idx].y, vertices[idx].z));
+                const depth = pts.reduce((s, p) => s + p.depth, 0) / 4;
+                return { pts, depth, color: f.color, label: f.label };
+            }).sort((a, b) => a.depth - b.depth);
+
+            projected.forEach(f => {
+                ctx.beginPath();
+                ctx.moveTo(f.pts[0].x, f.pts[0].y);
+                f.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
+                ctx.closePath();
+                ctx.fillStyle = f.color;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(212,175,55,0.4)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                // Draw labels on visible faces
+                if (f.depth > 0) {
+                    ctx.fillStyle = 'rgba(212,175,55,1)';
+                    ctx.font = 'bold 9px Inter';
+                    ctx.textAlign = 'center';
+                    const fx = f.pts.reduce((s, p) => s + p.x, 0) / 4;
+                    const fy = f.pts.reduce((s, p) => s + p.y, 0) / 4;
+                    ctx.fillText(f.label, fx, fy + 3);
+                }
+            });
+
+            // Draw axis lines
+            const drawAxis = (x, y, z, color) => {
+                const p0 = proj(0, 0, 0);
+                const p1 = proj(x, y, z);
+                ctx.beginPath();
+                ctx.moveTo(p0.x, p0.y);
+                ctx.lineTo(p1.x, p1.y);
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            };
+            drawAxis(1.5, 0, 0, '#D4AF37'); // E
+            drawAxis(0, 1.5, 0, '#FF6B00'); // N
+            drawAxis(0, 0, 1.5, '#fff');    // Up
         }
 
         function drawLegend(maxLux) {
@@ -1273,8 +1418,8 @@
             const w = 16;
             const h = 100;
 
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-            ctx.strokeStyle = 'rgba(71, 85, 105, 0.3)';
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.95)';
+            ctx.strokeStyle = 'rgba(212, 175, 55, 0.15)';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.roundRect(x - 35, y - 8, 80, h + 45, 8);
@@ -1356,7 +1501,7 @@
             const icon = document.getElementById('complianceIcon');
             const text = document.getElementById('complianceText');
 
-            badge.className = `px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all ${allPass ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`;
+            badge.className = `px-4 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all ${allPass ? 'bg-gold/10 text-gold border border-gold/20' : 'bg-orange/10 text-orange border border-orange/20'}`;
             icon.textContent = allPass ? '✓' : '✗';
             text.textContent = allPass ? 'IES RP-8 Compliant' : 'Non-Compliant';
         }
@@ -1378,9 +1523,9 @@
                 <div class="segment-item ${i === selectedSegment ? 'active' : ''}" data-index="${i}">
                     <div class="flex justify-between items-center text-xs">
                         <span class="font-semibold text-white">Segment ${i + 1}</span>
-                        <span class="text-blue-400 font-medium">${seg.length} ft</span>
+                        <span class="text-gold font-medium">${seg.length} ft</span>
                     </div>
-                    <div class="text-[10px] text-slate-500 mt-1">
+                    <div class="text-[10px] text-white/40 mt-1">
                         ${seg.type === 'curve' ? `Curve R${seg.radius}ft ${seg.direction}` : 'Straight'} 
                         ${seg.gradeIn !== 0 || seg.gradeOut !== 0 ? `• Grade ${seg.gradeIn}%→${seg.gradeOut}%` : ''}
                     </div>
@@ -1633,7 +1778,8 @@
 
                 calculate();
                 btnText.textContent = `✓ Optimized (${compliantCount} solutions found)`;
-                btn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                btn.style.background = 'linear-gradient(135deg, var(--gold), var(--gold-dark))';
+                btn.style.color = '#000';
             } else {
                 // No compliant solution found - apply maximum settings and notify user
                 btnText.textContent = 'Maximizing...';
@@ -1650,7 +1796,7 @@
 
                 calculate();
                 btnText.textContent = '⚠ No compliant solution';
-                btn.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
+                btn.style.background = 'linear-gradient(135deg, var(--orange), #ca5500)';
             }
 
             // Reset button after delay
@@ -1666,9 +1812,8 @@
         }
 
         function resize() {
-            const rect = canvas.parentElement.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height - 60;
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
             draw();
         }
 
@@ -1749,7 +1894,17 @@
         });
 
         document.getElementById('topView').addEventListener('click', () => {
-            view = { rotX: 1.4, rotY: 0, zoom: 2, panX: 0, panY: 0 };
+            view = { rotX: 1.4, rotY: 0, zoom: 1.5, panX: 0, panY: 0 };
+            draw();
+        });
+
+        document.getElementById('isoView').addEventListener('click', () => {
+            view = { rotX: 0.6, rotY: 0.78, zoom: 2, panX: 0, panY: 0 };
+            draw();
+        });
+
+        document.getElementById('sideView').addEventListener('click', () => {
+            view = { rotX: 0.1, rotY: 0, zoom: 2, panX: 0, panY: 0 };
             draw();
         });
 
@@ -1802,6 +1957,63 @@
             segments[selectedSegment].direction = e.target.value;
             renderSegmentList();
             calculate();
+        });
+
+        // Export/Import functionality
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            const data = {
+                segments: segments,
+                params: getParams()
+            };
+            const dataStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([dataStr], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const exportFileDefaultName = 'lumi-design-input.txt';
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', url);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importFile').click();
+        });
+
+        document.getElementById('importFile').addEventListener('change', e => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = e => {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (importedData.segments && importedData.params) {
+                        segments = importedData.segments;
+                        setParams(importedData.params);
+                        selectedSegment = 0;
+                        renderSegmentList();
+                        updateSegmentEditor();
+                        calculate();
+                        // Reset file input
+                        document.getElementById('importFile').value = '';
+                    } else if (Array.isArray(importedData)) {
+                        // Backward compatibility for old segment-only files
+                        segments = importedData;
+                        selectedSegment = 0;
+                        renderSegmentList();
+                        updateSegmentEditor();
+                        calculate();
+                        document.getElementById('importFile').value = '';
+                    } else {
+                        alert('Invalid file format. Expected a .txt input file or a JSON array of segments.');
+                    }
+                } catch (err) {
+                    alert('Error parsing file: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
         });
 
         // View-only options
