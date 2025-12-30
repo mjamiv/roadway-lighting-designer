@@ -1335,81 +1335,126 @@
         }
 
         function drawCompass() {
-            const size = 30;
-            const cx = 50;
-            const cy = canvas.height - 80;
+            const size = 35;
+            const cx = 70;
+            const cy = canvas.height - 130;
 
-            // Helper for compass-only projection
-            const proj = (nx, ny, nz) => {
-                const cosY = Math.cos(view.rotY);
-                const sinY = Math.sin(view.rotY);
-                const cosX = Math.cos(view.rotX);
-                const sinX = Math.sin(view.rotX);
+            // Shared projection settings
+            const cosY = Math.cos(view.rotY);
+            const sinY = Math.sin(view.rotY);
+            const cosX = Math.cos(view.rotX);
+            const sinX = Math.sin(view.rotX);
+
+            const proj = (nx, ny, nz, s = size) => {
                 const rx = nx * cosY - ny * sinY;
                 const ry = nx * sinY + ny * cosY;
                 return {
-                    x: rx * size + cx,
-                    y: (ry * sinX - nz * cosX) * size + cy,
+                    x: rx * s + cx,
+                    y: (ry * sinX - nz * cosX) * s + cy,
                     depth: ry * cosX + nz * sinX
                 };
             };
 
+            // 1. Draw "Floating Stage" (Radial glow under compass)
+            const stageRadius = size * 1.8;
+            const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, stageRadius);
+            gradient.addColorStop(0, 'rgba(212, 175, 55, 0.15)');
+            gradient.addColorStop(0.6, 'rgba(212, 175, 55, 0.05)');
+            gradient.addColorStop(1, 'rgba(212, 175, 55, 0)');
+
+            ctx.save();
+            ctx.setTransform(1, 0, 0, 0.4, 0, cy * 0.6); // Flatten for perspective
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(cx, cy / 0.4, stageRadius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // 2. Define Cube Geometry
             const vertices = [
                 { x: -1, y: -1, z: -1 }, { x: 1, y: -1, z: -1 }, { x: 1, y: 1, z: -1 }, { x: -1, y: 1, z: -1 },
                 { x: -1, y: -1, z: 1 }, { x: 1, y: -1, z: 1 }, { x: 1, y: 1, z: 1 }, { x: -1, y: 1, z: 1 }
             ];
 
             const faces = [
-                { v: [0, 1, 2, 3], color: 'rgba(212,175,55,0.1)', label: 'B', normal: { x: 0, y: 0, z: -1 } },
-                { v: [4, 5, 6, 7], color: 'rgba(212,175,55,0.4)', label: 'T', normal: { x: 0, y: 0, z: 1 } },
-                { v: [0, 1, 5, 4], color: 'rgba(255,107,0,0.2)', label: 'S', normal: { x: 0, y: -1, z: 0 } },
-                { v: [2, 3, 7, 6], color: 'rgba(255,107,0,0.2)', label: 'N', normal: { x: 0, y: 1, z: 0 } },
-                { v: [0, 3, 7, 4], color: 'rgba(212,175,55,0.2)', label: 'W', normal: { x: -1, y: 0, z: 0 } },
-                { v: [1, 2, 6, 5], color: 'rgba(212,175,55,0.2)', label: 'E', normal: { x: 1, y: 0, z: 0 } }
+                { v: [0, 1, 2, 3], label: 'BOTTOM', color: 'rgba(10,10,10,0.8)', stroke: 'rgba(212,175,55,0.2)', text: '#666' },
+                { v: [4, 5, 6, 7], label: 'TOP', color: 'rgba(212,175,55,0.15)', stroke: 'rgba(212,175,55,0.6)', text: '#fff' },
+                { v: [0, 1, 5, 4], label: 'SOUTH', color: 'rgba(20,20,20,0.8)', stroke: 'rgba(212,175,55,0.3)', text: '#aaa' },
+                { v: [2, 3, 7, 6], label: 'NORTH', color: 'rgba(255,107,0,0.15)', stroke: 'rgba(255,107,0,0.8)', text: '#FF6B00' },
+                { v: [0, 3, 7, 4], label: 'WEST', color: 'rgba(20,20,20,0.8)', stroke: 'rgba(212,175,55,0.3)', text: '#aaa' },
+                { v: [1, 2, 6, 5], label: 'EAST', color: 'rgba(20,20,20,0.8)', stroke: 'rgba(212,175,55,0.3)', text: '#aaa' }
             ];
 
+            // 3. Render Faces with depth sorting
             const projected = faces.map(f => {
                 const pts = f.v.map(idx => proj(vertices[idx].x, vertices[idx].y, vertices[idx].z));
                 const depth = pts.reduce((s, p) => s + p.depth, 0) / 4;
-                return { pts, depth, color: f.color, label: f.label };
+                return { ...f, pts, depth };
             }).sort((a, b) => a.depth - b.depth);
 
             projected.forEach(f => {
+                // Face fill
                 ctx.beginPath();
                 ctx.moveTo(f.pts[0].x, f.pts[0].y);
                 f.pts.slice(1).forEach(p => ctx.lineTo(p.x, p.y));
                 ctx.closePath();
-                ctx.fillStyle = f.color;
+
+                const faceGradient = ctx.createLinearGradient(f.pts[0].x, f.pts[0].y, f.pts[2].x, f.pts[2].y);
+                faceGradient.addColorStop(0, f.color);
+                faceGradient.addColorStop(1, 'rgba(0,0,0,0.6)');
+                ctx.fillStyle = faceGradient;
                 ctx.fill();
-                ctx.strokeStyle = 'rgba(212,175,55,0.4)';
-                ctx.lineWidth = 1;
+
+                // Beveled edge
+                ctx.strokeStyle = f.stroke;
+                ctx.lineWidth = f.label === 'NORTH' ? 1.5 : 0.8;
                 ctx.stroke();
 
-                // Draw labels on visible faces
+                // Typography on visible faces
                 if (f.depth > 0) {
-                    ctx.fillStyle = 'rgba(212,175,55,1)';
-                    ctx.font = 'bold 9px Inter';
-                    ctx.textAlign = 'center';
                     const fx = f.pts.reduce((s, p) => s + p.x, 0) / 4;
                     const fy = f.pts.reduce((s, p) => s + p.y, 0) / 4;
-                    ctx.fillText(f.label, fx, fy + 3);
+
+                    ctx.save();
+                    ctx.fillStyle = f.text;
+                    ctx.font = f.label === 'NORTH' ? 'bold 10px Inter' : '600 8px Inter';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    // Add subtle glow to North
+                    if (f.label === 'NORTH') {
+                        ctx.shadowBlur = 8;
+                        ctx.shadowColor = 'rgba(255,107,0,0.5)';
+                    }
+
+                    ctx.fillText(f.label, fx, fy);
+                    ctx.restore();
                 }
             });
 
-            // Draw axis lines
-            const drawAxis = (x, y, z, color) => {
+            // 4. Draw Glow Axes
+            const drawAxis = (x, y, z, color, label) => {
                 const p0 = proj(0, 0, 0);
-                const p1 = proj(x, y, z);
+                const p1 = proj(x, y, z, size * 1.6);
+
                 ctx.beginPath();
                 ctx.moveTo(p0.x, p0.y);
                 ctx.lineTo(p1.x, p1.y);
                 ctx.strokeStyle = color;
-                ctx.lineWidth = 1.5;
+                ctx.lineWidth = 1;
+                ctx.setLineDash([2, 2]);
                 ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Axis Label
+                ctx.fillStyle = color;
+                ctx.font = '700 9px Inter';
+                ctx.fillText(label, p1.x + (p1.x > p0.x ? 5 : -5), p1.y);
             };
-            drawAxis(1.5, 0, 0, '#D4AF37'); // E
-            drawAxis(0, 1.5, 0, '#FF6B00'); // N
-            drawAxis(0, 0, 1.5, '#fff');    // Up
+
+            drawAxis(1, 0, 0, 'rgba(212,175,55,0.6)', 'E');
+            drawAxis(0, 1, 0, 'rgba(255,107,0,0.6)', 'N');
+            drawAxis(0, 0, 1, 'rgba(255,255,255,0.4)', 'UP');
         }
 
         function drawLegend(maxLux) {
